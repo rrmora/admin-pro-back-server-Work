@@ -16,6 +16,7 @@ var usuarioSchema = new Schema({
     password: { type: String, required: [true, 'la contraseña es requerida'] },
     img: { type: String, required: false },
     role: { type: String, required: true, default: 'admin', enum: rolesValidos },
+    google: { type: Boolean, default: false }
 });
 // agregar mensaje al correo
 usuarioSchema.plugin(uniqueValidator, { messaje: '{PATH} debe de ser único' })
