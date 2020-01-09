@@ -111,7 +111,7 @@ app.post('/', (request, response) => {
         if (!usuarioDB) {
             return response.status(400).send({
                 ok: false,
-                mensaje: 'Credenciales incorrectas - email',
+                mensaje: 'Credenciales incorrectas - emailsss',
                 errors: error
             });
         }
@@ -135,8 +135,6 @@ app.post('/', (request, response) => {
         });
     });
 });
-
-
 
 
 

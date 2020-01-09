@@ -47,7 +47,7 @@ app.put('/:tipo/:id', (request, response, next) => {
         });
     }
     // nombre de archivo personalizado
-    var nombreArchivo = `${id} - ${ new Date().getMilliseconds()}.${extensionArchivo}`;
+    var nombreArchivo = `${id}${ new Date().getMilliseconds()}.${extensionArchivo}`;
     // mover el archivo a una carpeta
     var path = `./uploads/${tipo}/${nombreArchivo}`;
     archivo.mv(path, error => {
