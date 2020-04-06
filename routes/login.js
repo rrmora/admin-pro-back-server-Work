@@ -10,6 +10,8 @@ var CLIENT_ID = require('../config/config').CLIENT_ID;
 // google
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(CLIENT_ID);
+// auth midleware
+var mdAuth = require('../middlewares/auth');
 
 
 var app = express();
@@ -70,7 +72,8 @@ app.post('/google', async(request, response) => {
                     ok: true,
                     usuario: usuarioDB,
                     token: token,
-                    id: usuarioDB._id
+                    id: usuarioDB._id,
+                    menu: obtenerMenu(usuarioDB.role)
                 });
             }
         } else {
@@ -88,7 +91,8 @@ app.post('/google', async(request, response) => {
                     ok: true,
                     usuario: usuarioDB,
                     token: token,
-                    id: usuarioDB._id
+                    id: usuarioDB._id,
+                    menu: obtenerMenu(usuarioDB.role)
                 });
             });
         }
@@ -111,7 +115,7 @@ app.post('/', (request, response) => {
         if (!usuarioDB) {
             return response.status(400).send({
                 ok: false,
-                mensaje: 'Credenciales incorrectas - emailsss',
+                mensaje: 'Credenciales incorrectas - email',
                 errors: error
             });
         }
@@ -131,11 +135,57 @@ app.post('/', (request, response) => {
             ok: true,
             usuario: usuarioDB,
             token: token,
-            id: usuarioDB._id
+            id: usuarioDB._id,
+            menu: obtenerMenu(usuarioDB.role)
         });
     });
 });
 
+// ====================================
+// Refresh Token
+// ====================================
+app.get('/refreshtoken', mdAuth.verificarToken, (request, response) => {
+    var token = jwt.sign({ usuario: request.usuario }, SEED, { expiresIn: 14400 }) // 4 horas
+    response.status(200).send({
+        ok: true,
+        token:  token
+    });
+})
+
+
+function obtenerMenu(role) {
+
+    var menu = [
+        {
+            titulo: 'Principal',
+            icono: 'mdi mdi-gauge',
+            submenu: [
+                {titulo: 'Dashboard', url: '/dasboard'},
+                {titulo: 'ProgressBar', url: '/progress'},
+                {titulo: 'Graficas', url: '/graficas1'},
+                {titulo: 'Promesas', url: '/promesas'},
+                {titulo: 'RxJs', url: '/rxjs'}
+            ]
+        },
+        {
+            titulo: 'Mantenimiento',
+            icono: 'mdi mdi-folder-lock-open',
+            submenu: [
+                // {titulo: 'Usuarios', url: '/usuarios'},
+                // {titulo: 'Clientes', url: '/clientes'},
+                {titulo: 'Hospitales', url: '/hospitales'},
+
+            ]
+        }
+    ];
+
+    if (role === 'ADMIN_ROLE') {
+        menu[1].submenu.unshift({titulo: 'Usuarios', url: '/usuarios'});
+        menu[1].submenu.unshift({titulo: 'Clientes', url: '/clientes'});
+    }
+
+    return menu;
+}
 
 
 // ====================================

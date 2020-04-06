@@ -24,3 +24,43 @@ exports.verificarToken = function(request, response, next) {
         next();
     });
 }
+
+
+// ====================================
+// Verificar ROLE
+// ====================================
+exports.verificarRole = function(request, response, next) {
+    var usuario = request.usuario;
+    if (usuario.role === 'ADMIN_ROLE') {
+        next();
+        return;
+    } else {
+        return response.status(401).send({
+            ok: false,
+            mensaje: 'Token no valido.',
+            errors: {message: 'El usuario no tiene permisos para actulizar un usuario'}
+        });
+    }
+    
+}
+
+
+// ====================================
+// Verificar ADMIN O USUARIO
+// ====================================
+exports.verificarUsuarioOAdmin = function(request, response, next) {
+    var usuario = request.usuario;
+    var id = request.params.id;
+
+    if (usuario.role === 'ADMIN_ROLE' || usuario._id === id) {
+        next();
+        return;
+    } else {
+        return response.status(401).send({
+            ok: false,
+            mensaje: 'Token no valido.',
+            errors: {message: 'El usuario no tiene permisos para actulizar un usuario'}
+        });
+    }
+    
+}

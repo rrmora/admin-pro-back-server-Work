@@ -11,7 +11,7 @@ var cliente = new Schema({
     data: {
         data: {
             nombre: { type: String, required: [true, 'El nombre es requerido']},
-            apellidoP: { type: String, required : [true, 'El apellido es requerido']},
+           apellidoP: { type: String, required : [true, 'El apellido es requerido']},
             apellidoM: { type: String, required: false}
         },
         children: [{
