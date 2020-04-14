@@ -73,7 +73,7 @@ app.post('/google', async(request, response) => {
                     usuario: usuarioDB,
                     token: token,
                     id: usuarioDB._id,
-                    menu: obtenerMenu(usuarioDB.role)
+                    // menu: obtenerMenu(usuarioDB.role)
                 });
             }
         } else {
@@ -92,7 +92,7 @@ app.post('/google', async(request, response) => {
                     usuario: usuarioDB,
                     token: token,
                     id: usuarioDB._id,
-                    menu: obtenerMenu(usuarioDB.role)
+                    // menu: obtenerMenu(usuarioDB.role)
                 });
             });
         }
@@ -136,7 +136,7 @@ app.post('/', (request, response) => {
             usuario: usuarioDB,
             token: token,
             id: usuarioDB._id,
-            menu: obtenerMenu(usuarioDB.role)
+            // menu: obtenerMenu(usuarioDB.role)
         });
     });
 });
@@ -153,39 +153,43 @@ app.get('/refreshtoken', mdAuth.verificarToken, (request, response) => {
 })
 
 
-function obtenerMenu(role) {
+/*function obtenerMenu(role) {
 
     var menu = [
         {
-            titulo: 'Principal',
-            icono: 'mdi mdi-gauge',
-            submenu: [
-                {titulo: 'Dashboard', url: '/dasboard'},
-                {titulo: 'ProgressBar', url: '/progress'},
-                {titulo: 'Graficas', url: '/graficas1'},
-                {titulo: 'Promesas', url: '/promesas'},
-                {titulo: 'RxJs', url: '/rxjs'}
+            title: 'Principal',
+            icon: 'home',
+            type: 'sub', 
+            badgeType: 'primary', 
+            badgeValue: 'new', 
+            active: false,
+            children: [
+                { title: 'Dashboard', path: '/dasboard', type: 'link'},
+                { title: 'ProgressBar', path: '/progress', type: 'link'},
+                { title: 'Graficas', path: '/graficas1', type: 'link'},
+                { title: 'Promesas', path: '/promesas', type: 'link'},
+                { title: 'RxJs', path: '/rxjs', type: 'link'}
             ]
         },
         {
             titulo: 'Mantenimiento',
-            icono: 'mdi mdi-folder-lock-open',
-            submenu: [
+            icon: 'settings',
+            children: [
                 // {titulo: 'Usuarios', url: '/usuarios'},
                 // {titulo: 'Clientes', url: '/clientes'},
-                {titulo: 'Hospitales', url: '/hospitales'},
+                { title: 'Hospitales', path: '/hospitales', type: 'link'},
 
             ]
         }
     ];
 
     if (role === 'ADMIN_ROLE') {
-        menu[1].submenu.unshift({titulo: 'Usuarios', url: '/usuarios'});
-        menu[1].submenu.unshift({titulo: 'Clientes', url: '/clientes'});
+        menu[1].submenu.unshift({ title: 'Usuarios', path: '/usuarios', type: 'link' });
+        menu[1].submenu.unshift({ title: 'Clientes', path: '/clientes', type: 'link' });
     }
 
     return menu;
-}
+}*/
 
 
 // ====================================

@@ -138,6 +138,34 @@ app.delete('/:id', mdAuth.verificarToken, (request, response) => {
         });
     });
 })
+// ====================================
+// Obtener cliente por  ID
+// ====================================
+app.get('/:id', mdAuth.verificarToken, (request, response) => {
+    var id = request.params.id;
+    Cliente.findById(id, (error, clienteById) => {
+        if (error) {
+            return response.status(400).send({
+                ok: false,
+                mensaje: 'Error al obtener cliente',
+                error: error
+            });
+        }
+        if (!clienteById) {
+            return response.status(400).send({
+                ok: false,
+                mensaje: 'El cliente con el id ' + id + 'no existe.',
+                error: { message: 'No existe un cliente con ese Id' }
+            });
+        }
+        response.status(200).send({
+            ok: true,
+            cliente: clienteById
+        })
+    })
+})
+
+
 
 
 // ====================================

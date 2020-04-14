@@ -16,6 +16,7 @@ app.get('/:tipo/:img', (request, response, next) => {
         var pathNoImage = path.resolve(__dirname, '../assets/no-img.jpg');
         response.sendFile(pathNoImage);
     }
+    console.log(pathNoImage);
 });
 // Exportar rutas
 module.exports = app;
