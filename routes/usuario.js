@@ -103,6 +103,7 @@ app.post('/', (request, response) => {
         img: body.img,
         role: body.role
     });
+    console.log('BODY:', usuario);
     // ====================================
     // Guardar usuario
     // ====================================

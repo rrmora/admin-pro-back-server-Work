@@ -8,13 +8,10 @@ var Cliente = require('../models/cliente');
 
 app.get('/', (request, response, next) => {
     // variables para paginar
-    var desde = request.query.desde || 0;
-    desde = Number(desde)
-
     Cliente.find({})
         .populate('')
-        .skip(desde)
-        .limit(5)
+        // .skip(desde)
+        // .limit(5)
         .exec(
             (error, cliente) => {
                 if (error) {
@@ -33,17 +30,54 @@ app.get('/', (request, response, next) => {
                 });
             });
 });
+    // ====================================
+    // obtener clientes con filtro
+    // ====================================
+app.get('/filter', (request, response, next) => {
+    // variables para paginar
+    var body = request.query;
+    var fechaInicio = body.fechaInicio;
+    var fechaFinal = body.fechaFinal;
+    var nombre  = body.nombre;
+    Cliente.find({ 
+        'data.data.nombre' : { $regex: nombre},
+        $or: [ {
+            $and: [{
+                'data.data.createdAt': { $gte : new Date(fechaInicio), $lte: new Date(fechaFinal) },
+            }]
+        }]
+    })
+    .populate('')
+    .exec(
+        (error, cliente) => {
+            if (error) {
+                response.status(500).send({
+                    ok: false,
+                    mensaje: 'Error al cargar cliente',
+                    errors: error
+                });
+            }
+            
+            Cliente.count({}, (error, conteo) => {
+                response.status(200).send({
+                    ok: true,
+                    clientes: cliente,
+                    totalcliente: conteo
+                });
+            });
+        }); 
+});
 
     // ====================================
     // Guardar cliente
     // ====================================
-app.post('/', mdAuth.verificarToken, (request, response) => {
+app.post('/', (request, response) => {
     var body = request.body;
-    var obj = JSON.parse(body.data);
+    // var obj = JSON.parse(body.data);
     var cliente = new Cliente({
-       data: obj    
+       data: body.data    
     });
-
+    console.log(cliente);
     // ====================================
     // Salvar cliente
     // ====================================
@@ -61,10 +95,10 @@ app.post('/', mdAuth.verificarToken, (request, response) => {
             cliente: clienteGuardado
         }); 
     });
-    // response.status(201).send({
-    //     ok: true,
-    //     cliente: cliente
-    // });
+    //  response.status(201).send({
+    //      ok: true,
+    //      cliente: cliente
+    //  });
 });
 
 // ====================================
