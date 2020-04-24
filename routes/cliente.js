@@ -77,7 +77,6 @@ app.post('/', (request, response) => {
     var cliente = new Cliente({
        data: body.data    
     });
-    console.log(cliente);
     // ====================================
     // Salvar cliente
     // ====================================
@@ -104,10 +103,10 @@ app.post('/', (request, response) => {
 // ====================================
 // Actualizar cliente
 // ====================================
-app.put('/:id', mdAuth.verificarToken, (request, response) => {
+app.put('/:id', (request, response) => {
     var id = request.params.id;
-    var body = request.body;
-    var client = JSON.parse(body.data);
+    var client = request.body;
+    // var client = JSON.parse(body.data);
     Cliente.findById(id, (error, clienteDB) => {
         if (error) {
             return response.status(500).send({
@@ -124,7 +123,7 @@ app.put('/:id', mdAuth.verificarToken, (request, response) => {
             });
         }
         // pasar obj a editar.
-        clienteDB.data = client;
+        clienteDB.data = client.data;
 
             // ====================================
             // Salvar
@@ -175,7 +174,7 @@ app.delete('/:id', mdAuth.verificarToken, (request, response) => {
 // ====================================
 // Obtener cliente por  ID
 // ====================================
-app.get('/:id', mdAuth.verificarToken, (request, response) => {
+app.get('/:id', (request, response) => {
     var id = request.params.id;
     Cliente.findById(id, (error, clienteById) => {
         if (error) {
