@@ -31,7 +31,7 @@ exports.verificarToken = function(request, response, next) {
 // ====================================
 exports.verificarRole = function(request, response, next) {
     var usuario = request.usuario;
-    if (usuario.role === 'ADMIN_ROLE') {
+    if (usuario.role === 'ADMIN_ROLE' || usuario.role === 'SUPER_ADMIN') {
         next();
         return;
     } else {
@@ -52,7 +52,7 @@ exports.verificarUsuarioOAdmin = function(request, response, next) {
     var usuario = request.usuario;
     var id = request.params.id;
 
-    if (usuario.role === 'ADMIN_ROLE' || usuario._id === id) {
+    if (usuario.role === 'ADMIN_ROLE' || usuario._id === id || usuario.role === 'SUPER_ADMIN') {
         next();
         return;
     } else {

@@ -83,6 +83,7 @@ app.post('/google', async(request, response) => {
             usuario.email = googleUser.email;
             usuario.img = googleUser.img;
             usuario.password = '****';
+            usuario.role = validarSuperAdmin(googleUser.email);
             usuario.google = true;
 
             usuario.save((error, usuarioDB) => {
@@ -152,6 +153,12 @@ app.get('/refreshtoken', mdAuth.verificarToken, (request, response) => {
     });
 })
 
+function validarSuperAdmin(googleUser) {
+    if (googleUser === 'raul.remo02@gmail.com') {
+        return 'SUPER_ADMIN';
+    }
+    return 'USER_ROLE';
+}
 
 /*function obtenerMenu(role) {
 

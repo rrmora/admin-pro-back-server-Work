@@ -6,7 +6,16 @@ var app = express();
 
 var Cliente = require('../models/cliente');
 
-app.get('/', (request, response, next) => {
+app.get('/test', mdAuth.verificarToken, (request, response, next) => {
+    var result = request.query;
+    response.status(200).send({
+        ok: false,
+        mensaje: 'Todo se carga bien',
+        respuesta: result
+    })
+})
+
+app.get('/', mdAuth.verificarToken, (request, response, next) => {
     // variables para paginar
     Cliente.find({})
         .populate('')
@@ -33,7 +42,7 @@ app.get('/', (request, response, next) => {
     // ====================================
     // obtener clientes con filtro
     // ====================================
-app.get('/filter', (request, response, next) => {
+app.get('/filter', mdAuth.verificarToken, (request, response, next) => {
     // variables para paginar
     var body = request.query;
     var fechaInicio = body.fechaInicio;
@@ -71,7 +80,7 @@ app.get('/filter', (request, response, next) => {
     // ====================================
     // Guardar cliente
     // ====================================
-app.post('/', (request, response) => {
+app.post('/', mdAuth.verificarToken, (request, response) => {
     var body = request.body;
     // var obj = JSON.parse(body.data);
     var cliente = new Cliente({
@@ -103,7 +112,7 @@ app.post('/', (request, response) => {
 // ====================================
 // Actualizar cliente
 // ====================================
-app.put('/:id', (request, response) => {
+app.put('/:id', mdAuth.verificarToken, (request, response) => {
     var id = request.params.id;
     var client = request.body;
     // var client = JSON.parse(body.data);
