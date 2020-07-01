@@ -48,7 +48,7 @@ app.get('/', mdAuth.verificarToken, (request, response, next) => {
     app.post('/', mdAuth.verificarToken, (request, response) => {
         var body = request.body;
         // var obj = JSON.parse(body.data);
-        console.log(body);
+        // console.log(body);
         var clienteVianey = new ClienteVianey({
            data: body    
          });
