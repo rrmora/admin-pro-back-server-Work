@@ -61,6 +61,8 @@ app.put('/estatusGeneral/:id', [mdAuth.verificarToken, mdAuth.verificarRole, mdA
         }
 
         estatusGeneral.nombre = body.nombre,
+        estatusGeneral.color = body.color,
+        estatusGeneral.abre = body.abre,
             // ====================================
             // Actualizar
             // ====================================
@@ -89,7 +91,9 @@ app.post('/estatusGeneral/', (request, response) => {
     var body = request.body;
     // asignar valores de usuario
     var estatusGeneral = new EstatusGeneral({
-        nombre: body.nombre
+        nombre: body.nombre,
+        color: body.color,
+        abre: body.abre
     });
     
     // ====================================
@@ -188,6 +192,8 @@ app.put('/estatusVisa/:id', [mdAuth.verificarToken, mdAuth.verificarRole, mdAuth
         }
 
         estatusVisa.nombre = body.nombre,
+        estatusVisa.abre = body.abre,
+        estatusVisa.color = body.color,
             // ====================================
             // Actualizar
             // ====================================
@@ -216,7 +222,9 @@ app.put('/estatusVisa/:id', [mdAuth.verificarToken, mdAuth.verificarRole, mdAuth
         var body = request.body;
         // asignar valores de usuario
         var estatusVisa = new EstatusVisa({
-            nombre: body.nombre
+            nombre: body.nombre,
+            abre: body.abre,
+            color: body.color
         });
         
         // ====================================
