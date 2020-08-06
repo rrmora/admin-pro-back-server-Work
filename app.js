@@ -2,7 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var port = process.env.PORT || 3001;
+var port = process.env.PORT;
 
 // conexion a la base de datos
 mongoose.connection.openUri('mongodb://localhost:27017/hospitaldb', (error, response) => {
