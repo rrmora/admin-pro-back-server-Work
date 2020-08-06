@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var port = process.env.PORT || 3001;
 
 // conexion a la base de datos
 mongoose.connection.openUri('mongodb://localhost:27017/hospitaldb', (error, response) => {
@@ -56,6 +57,6 @@ app.use('/login', loginRoutes);
 app.use('/', appRoutes);
 
 // escuchar peticiones
-app.listen(3001, () => {
-    console.log('Express server corriendo en el puerto 3001: \x1b[32m%s\x1b[0m', '-- Online --');
+app.listen(port, () => {
+    console.log('Express server corriendo en el puerto... ' + port + ': \x1b[32m%s\x1b[0m', '-- Online --');
 })
