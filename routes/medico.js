@@ -28,13 +28,11 @@ app.get('/', (request, response, next) => {
                         errors: error
                     });
                 }
-                Medico.count({}, (error, conteo) => {
-                    response.status(200).send({
-                        ok: true,
-                        medicos: medicos,
-                        totalMedicos: conteo
-                    });
-                })
+                response.status(200).send({
+                    ok: true,
+                    medicos: medicos,
+                    totalMedicos: conteo
+                });
             });
 });
 

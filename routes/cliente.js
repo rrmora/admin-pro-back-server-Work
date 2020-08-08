@@ -30,12 +30,10 @@ app.get('/', mdAuth.verificarToken, (request, response, next) => {
                         errors: error
                     });
                 }
-                Cliente.count({}, (error, conteo) => {
-                    response.status(200).send({
-                        ok: true,
-                        clientes: cliente,
-                        totalcliente: conteo
-                    });
+                response.status(200).send({
+                    ok: true,
+                    clientes: cliente,
+                    totalcliente: conteo
                 });
             });
 });
@@ -67,12 +65,10 @@ app.get('/filter', mdAuth.verificarToken, (request, response, next) => {
                 });
             }
             
-            Cliente.count({}, (error, conteo) => {
-                response.status(200).send({
-                    ok: true,
-                    clientes: cliente,
-                    totalcliente: conteo
-                });
+            response.status(200).send({
+                ok: true,
+                clientes: cliente,
+                totalcliente: conteo
             });
         }); 
 });

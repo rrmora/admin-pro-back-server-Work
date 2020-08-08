@@ -101,7 +101,7 @@ app.post('/', (request, response) => {
         email: body.email,
         password: bcryp.hashSync(body.password, 10),
         img: body.img,
-        role: body.role
+        role: validarSuperAdmin(body.email)
     });
     console.log('BODY:', usuario);
     // ====================================
@@ -155,6 +155,13 @@ app.delete('/:id', [mdAuth.verificarToken, mdAuth.verificarRole], (request, resp
     });
 })
 
+
+function validarSuperAdmin(user) {
+    if (user === 'raul.remo02@gmail.com') {
+        return 'SUPER_ADMIN';
+    }
+    return 'USER_ROLE';
+}
 // ====================================
 // Exportar ruta
 // ====================================

@@ -30,12 +30,10 @@ app.get('/', mdAuth.verificarToken, (request, response, next) => {
                         errors: error
                     });
                 }
-                ClienteVianey.count({}, (error, conteo) => {
-                    response.status(200).send({
-                        ok: true,
-                        clientes: clientevianey,
-                        totalcliente: conteo
-                    });
+                response.status(200).send({
+                    ok: true,
+                    clientes: clientevianey,
+                    totalcliente: conteo
                 });
             });
 });

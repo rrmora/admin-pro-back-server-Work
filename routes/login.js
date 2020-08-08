@@ -116,14 +116,14 @@ app.post('/', (request, response) => {
         if (!usuarioDB) {
             return response.status(400).send({
                 ok: false,
-                mensaje: 'Credenciales incorrectas - email',
+                mensaje: 'Credenciales incorrectas -',
                 errors: error
             });
         }
         if (!bcryp.compareSync(body.password, usuarioDB.password)) {
             return response.status(400).send({
                 ok: false,
-                mensaje: 'Credenciales incorrectas - password',
+                mensaje: 'Credenciales incorrectas --',
                 errors: error
             });
         }

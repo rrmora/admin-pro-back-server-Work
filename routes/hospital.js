@@ -29,13 +29,11 @@ app.get('/', (request, response, next) => {
                         errors: error
                     });
                 }
-                Hospital.count({}, (error, conteo) => {
-                    response.status(200).send({
-                        ok: true,
-                        hospitales: hospitales,
-                        totalHospitales: conteo
-                    });
-                });
+                response.status(200).send({
+                    ok: true,
+                    hospitales: hospitales,
+                    totalHospitales: conteo
+                });                
             });
 });
 
